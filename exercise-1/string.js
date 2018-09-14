@@ -1,53 +1,74 @@
 function ucfirst(phrase){
-	return phrase.charAt(0).toUpperCase() + phrase.substring(1)
+	if(phrase === null ){
+		return "";
+	}else{
+		return phrase.charAt(0).toUpperCase() + phrase.substring(1)
+	}
 }
 
 
 function capitalize(phrase){
-	var phrase = phrase.split(" ");
-	var final = "";
+	if(phrase === null ){
+		return ""
+	}else{
 
-	for ( var i = 0 ; i < phrase.length; i++){
-		final += ucfirst(phrase[i])
-		if( i < phrase.length - 1){
-			final += " "
+		var phrase = phrase.split(" ");
+		var final = "";
+
+		for ( var i = 0 ; i < phrase.length; i++){
+			final += ucfirst(phrase[i])
+			if( i < phrase.length - 1){
+				final += " "
+			}
 		}
-	}
 
-	return final;
+		return final;
+	}
 }
 
 
 function camelCase(phrase){
-	return capitalize(phrase).replace(/[ ]/gm,"");
+	if(phrase === null ){
+		return ""
+	}else{
+		return capitalize(phrase).replace(/[ ]/gm,"");
+	}
 }
 
 
 function snake_case(phrase){
-	return phrase.toLowerCase().replace(/[ ]/gm,"_");
+	if(phrase === null ){
+		return ""
+	}else{
+		return phrase.toLowerCase().replace(/[ ]/gm,"_");
+	}
 }
 
 function leet(phrase){
-	var parser = {
-		A: "4",
-		E: "3",
-		I: "1",
-		O: "0",
-		U: "(_)",
-		Y: "7",
-		a: "4",
-		e: "3",
-		i: "1",
-		o: "0",
-		u: "(_)",
-		y: "7"
+	if(phrase === null ){
+		return ""
+	}else{
+		var parser = {
+			A: "4",
+			E: "3",
+			I: "1",
+			O: "0",
+			U: "(_)",
+			Y: "7",
+			a: "4",
+			e: "3",
+			i: "1",
+			o: "0",
+			u: "(_)",
+			y: "7"
+		}
+
+		for (var key in parser){
+			phrase = phrase.replace(new RegExp('['+ key +']','gm'),parser[key]);
+		} 
+
+		return phrase;
 	}
-
-	for (var key in parser){
-		phrase = phrase.replace(new RegExp('['+ key +']','gm'),parser[key]);
-	} 
-
-	return phrase;
 }
 
 
@@ -86,45 +107,57 @@ function prop_access(objet, properties = null){
 }
 
 function verlan(phrase){
-	phrase = phrase.split(" ");
-	var final = "";
-	for(var key in phrase){
-		var temp = "";
-		for(var i = phrase[key].length -1; i >=0; i--){
-			temp += phrase[key][i];
-		}
-		if(key < phrase.length){
-			temp += " ";
-		}
-		final += temp;
+	if(phrase === null ){
+		return ""
+	}else{
+		phrase = phrase.split(" ");
+		var final = "";
+		for(var key in phrase){
+			var temp = "";
+			for(var i = phrase[key].length -1; i >=0; i--){
+				temp += phrase[key][i];
+			}
+			if(key < phrase.length){
+				temp += " ";
+			}
+			final += temp;
 
+		}
+
+		return final;
 	}
-
-	return final;
 }
 
 function yoda(phrase){
-	return phrase.split(" ").reverse().join(" ");
+	if(phrase === null ){
+		return ""
+	}else{
+		return phrase.split(" ").reverse().join(" ");
+	}
 }
 
 function vig(phrase, salt){
-	var bigSalt = "";
-	var saltIndex = 0;
-	for(var i = 0; i < phrase.length; i++){
-		if(phrase[i] >= "a" && phrase[i] <= "z"){
-			var test = (phrase[i].charCodeAt(0) + salt[saltIndex].charCodeAt(0)) % 26;
-			test += "a".charCodeAt(0);
-			bigSalt += String.fromCharCode(test);
-			if(saltIndex >= salt.length-1){
-				saltIndex = 0;
+	if(phrase === null || salt === null){
+		return "";
+	}else{
+		var bigSalt = "";
+		var saltIndex = 0;
+		for(var i = 0; i < phrase.length; i++){
+			if(phrase[i] >= "a" && phrase[i] <= "z"){
+				var test = (phrase[i].charCodeAt(0) + salt[saltIndex].charCodeAt(0)) % 26;
+				test += "a".charCodeAt(0);
+				bigSalt += String.fromCharCode(test);
+				if(saltIndex >= salt.length-1){
+					saltIndex = 0;
+				}else{
+					saltIndex++
+				}
 			}else{
-				saltIndex++
+				bigSalt += " ";
 			}
-		}else{
-			bigSalt += " ";
 		}
-	}
 
-	return bigSalt;
+		return bigSalt;
+	}
 }
 
